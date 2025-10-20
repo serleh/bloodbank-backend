@@ -18,6 +18,13 @@ const ErrorHandler = (error, req, res, next) => {
 
   if (error.name == "CastError") {
     return res.status(400).send({ error: "Malformatted id" });
+  } else if (error.name === "ValidationError") {
+    return res.status(400).send({ error: error.message });
+  } else if (error.code === 11000) {
+    const field = Object.keys(error.keyValue);
+    return res.status(409).json({
+      error: `Duplicate value for field: ${field}. Please use another value.`,
+    });
   }
   next();
 };
@@ -32,12 +39,8 @@ app.get("/api/", (req, res) => {
 
 // Add A DONOR
 
-app.post("/api/donors", (req, res) => {
+app.post("/api/donors", (req, res, next) => {
   const body = req.body;
-
-  if (!body) {
-    return res.status(400).json({ error: "Content Missing" });
-  }
 
   const requiredFields = [
     "name",
@@ -70,9 +73,12 @@ app.post("/api/donors", (req, res) => {
     last_donated: body.last_donated,
     sex: body.sex,
   });
-  donor.save().then((savedDonor) => {
-    res.json(savedDonor);
-  });
+  donor
+    .save()
+    .then((savedDonor) => {
+      res.json(savedDonor);
+    })
+    .catch((error) => next(error));
 });
 
 // GET ALL DONORS
