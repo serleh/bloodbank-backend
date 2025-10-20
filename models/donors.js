@@ -10,7 +10,7 @@ mongoose
 
 const donorSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, minlength: 4 },
     address: { type: String, required: true },
     city: { type: String, required: true },
     sex: { type: String, required: true },
