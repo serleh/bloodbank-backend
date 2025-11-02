@@ -98,7 +98,7 @@ app.get("/api/donors/search", (req, res) => {
   const filter = {};
 
   if (city) filter.city = { $regex: city, $options: "i" };
-  if (blood_group) filter.blood_group = { $regex: Blob, $options: "i" };
+  if (blood_group) filter.blood_group = { $regex: blood_group, $options: "i" };
   if (availability) filter.availability = availability === "true";
   if (name) filter.name = { $regex: name, $options: "i" };
 
