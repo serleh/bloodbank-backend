@@ -1,10 +1,4 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
-
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to database"))
-  .catch((err) => console.log("Error", err));
+import mongoose from "mongoose";
 
 // DONORS SCHEMA
 
@@ -18,11 +12,13 @@ const donorSchema = new mongoose.Schema(
     dob: {
       type: Date,
       required: true,
-      validate: function (value) {
-        const age = new Date().getFullYear() - value.getFullYear();
-        return age >= 18;
+      validate: {
+        validator: function (value) {
+          const age = new Date().getFullYear() - value.getFullYear();
+          return age >= 18;
+        },
+        message: "Donor must be at least 18 years old",
       },
-      message: "Donor must be at least 18 years old",
     },
     blood_group: {
       type: String,
@@ -55,6 +51,4 @@ donorSchema.set("toJSON", {
 
 // Donor model
 
-const Donor = mongoose.model("Donor", donorSchema);
-
-module.exports = Donor;
+export default mongoose.model("Donor", donorSchema);
