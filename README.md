@@ -8,11 +8,11 @@ This backend application provides endpoints to manage blood donors, track donati
 
 ## Features
 
-- [* ] CRUD operation for donors
+- [x] CRUD operations for donors
 - [ ] Track blood availability
-- [ ] Handle blood request
+- [ ] Handle blood requests
 - [ ] Authentication
-- [* ] Validation and error handling
+- [x] Validation and error handling
 
 ## Running the project
 
