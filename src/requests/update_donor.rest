@@ -1,0 +1,16 @@
+### Update Donor
+
+PUT http://localhost:3001/api/donors/donorId
+Content-Type: Application/json
+
+{
+  "name": "Updated Name",
+  "address": "New Address",
+  "city": "Abuja",
+  "sex": "Male",
+  "weight": 78,
+  "dob": "1993-10-10",
+  "blood_group": "O+",
+  "contact": "08099999999",
+  "email": "saleh_updated@example.com"
+}

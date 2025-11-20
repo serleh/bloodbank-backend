@@ -6,15 +6,16 @@ import {
   updateDonorAvailability,
   deleteDonor,
 } from "../services/donor.js";
+import { error } from "../utils/logger.js";
 
-export const createDonorController = async (req, res) => {
+export const createDonorController = async (req, res, next) => {
   try {
     const donorData = req.body;
     const savedDonor = await CreateDonor(donorData);
 
     res.status(201).json(savedDonor);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
@@ -27,17 +28,17 @@ export const getDonorsController = async (req, res) => {
   }
 };
 
-export const getDonorController = async (req, res) => {
+export const getDonorController = async (req, res, next) => {
   try {
     const donor = await getDonorById(req.params.id);
     if (!donor) return res.status(404).json({ message: "Donor not found" });
     res.json(donor);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-export const updateDonorController = async (req, res) => {
+export const updateDonorController = async (req, res, next) => {
   try {
     const updatedDonor = await updateDonor(req.params.id, req.body);
 
@@ -46,11 +47,11 @@ export const updateDonorController = async (req, res) => {
     }
     res.json(updatedDonor);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-export const updateDonorAvailabilityController = async (req, res) => {
+export const updateDonorAvailabilityController = async (req, res, next) => {
   try {
     const availabilty = req.body;
     const updatedDonor = await updateDonorAvailability(
@@ -63,15 +64,15 @@ export const updateDonorAvailabilityController = async (req, res) => {
     }
     res.json(updateDonor);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-export const deleteDonorController = async (req, res) => {
+export const deleteDonorController = async (req, res, next) => {
   try {
     await deleteDonor(req.params.id);
     res.json({ message: "Donor deleted" });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };

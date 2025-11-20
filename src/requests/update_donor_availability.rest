@@ -1,0 +1,7 @@
+### Update Availability
+PATCH {{BASE_URL}}/donors/donorId/availability
+Content-Type: application/json
+
+{
+  "availability": false
+}

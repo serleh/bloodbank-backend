@@ -1,0 +1,3 @@
+### Delete Donor
+DELETE ### Delete Donor
+DELETE {{BASE_URL}}/donors/donorId

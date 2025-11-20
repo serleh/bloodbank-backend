@@ -1,0 +1,15 @@
+### Create Donor
+POST http://localhost:3001/api/donors/
+Content-Type: application/json
+
+{
+  "name": "Saleh Abdullahi",
+  "address": "Kano",
+  "city": "Kano",
+  "sex": "Male",
+  "weight": 75,
+  "dob": "1995-06-12",
+  "blood_group": "O+",
+  "contact": "09012345678",
+  "email": "saleh@example.com"
+}
