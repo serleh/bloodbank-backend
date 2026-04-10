@@ -5,6 +5,7 @@ import {
   updateDonor,
   updateDonorAvailability,
   deleteDonor,
+  SearchDonors,
 } from "../services/donor.js";
 import { error } from "../utils/logger.js";
 
@@ -56,7 +57,7 @@ export const updateDonorAvailabilityController = async (req, res, next) => {
     const availabilty = req.body;
     const updatedDonor = await updateDonorAvailability(
       req.params.id,
-      availabilty
+      availabilty,
     );
 
     if (!updateDonor) {
@@ -72,6 +73,15 @@ export const deleteDonorController = async (req, res, next) => {
   try {
     await deleteDonor(req.params.id);
     res.json({ message: "Donor deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchDonorController = async (req, res, next) => {
+  try {
+    const donors = await SearchDonors(req.query);
+    res.json(donors);
   } catch (error) {
     next(error);
   }
